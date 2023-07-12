@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+
+}
+
+body {
+    background: url("images/chicago1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+
+}
+
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 110vh;
+    background: rgba(39, 39, 39, 0.4);
+
+
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    background: linear-gradient(rgba(39,39,39, 0.6), transparent );
+    z-index: 100;
+
+}
+
+
+.nav-logo p {
+
+color: white;
+font-size: 25px;
+font-weight: 600;
+
+}
+
+.nav-menu ul {
+    display: flex;
+
+}
+
+
+.nav-menu ul li {
+
+list-style-type: none;
+
+}
+
+.nav-menu ul li .link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+    padding-bottom: 15px;
+    margin: 0 25px;
+
+}
+
+.link:hover, .active {
+    border-bottom: 2px solid #fff;
+
+}
+
+.nav-button {
+    width: 130px;
+    height: 40px;
+    font-weight: 500;
+    background: rgba(39,39,39, 0.4);
+    border-radius: 30px;
+    transition: .3s ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+
+}
+
+#registerBtn {
+    margin-left: 15px;
+
+}
+
+
+.btn.white-btn {
+    background: rgba(255, 255, 255, 0.7);
+
+}
+
+.btn.btn.white-btn:hover {
+
+    background: rgba(255, 255, 255, 0.5);
+
+
+
+}
+
+.nav-menu-btn {
+    display: none;
+
+
+}
+
+.form-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 512px;
+    height: 420px;
+    overflow: hidden;
+    z-index: 2;
+
+}
+
+
+.register-container {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    transition: .5s ease-in-out;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+ .header {
+
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+padding: 25px 12.5%;
+background: yellowgreen;
+display: flex;
+justify-content: space-between;
+align-items: center;
+z-index: 100;
+float: right;
+
+}
+
+/* had to use this to pull search bar to the right */
+.pull-right {
+    float: right;
+    margin-left: 500px;
+
+
+}
+
+
+.navbar a {
+    position: relative;
+    font-size: 16px;
+    color: #e4e4e4;
+    font-weight: 500;
+    margin-right: 30px;
+    text-decoration: none !important;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: #e4e4e4;
+    border-radius: 5px;
+    transform: translateY(10px);
+}
+
+
