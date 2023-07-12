@@ -12,12 +12,12 @@ body{
   
 }
 .background{
-    background: url(./images/chicago1.jpg) no-repeat;
+    background: url(./images/chicago2.jpg) no-repeat;
     background-position: center;
     background-size:cover ;
     height: 100vh;
     width: 100%;
-    filter: blur(10px);
+    /* filter: blur(10px); */
 }
 
 .header{
