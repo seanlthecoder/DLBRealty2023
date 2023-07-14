@@ -36,7 +36,8 @@ body{
 .navbar a{
     position: relative;
     font-size: 16px;
-    color: #fff;
+    font-weight: bold;
+    color: black;
     margin-right: 30px;
     text-decoration: none;
 }
@@ -123,7 +124,7 @@ body{
 
 }
 .item .logo{
-    color: #fff;
+    color: black;
     font-size: 30px;
 
 }
