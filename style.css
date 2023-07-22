@@ -166,9 +166,11 @@ body{
     
 }
 .login-section .form-box.register{
-    transform: translateX(430px);
+
+    transform: translateX(1430px);
     transition: transform .6s ease;
     transition-delay: 0s;
+
 }
 .login-section.active .form-box.register{
     transform: translateX(0px);
@@ -181,7 +183,7 @@ body{
     transition-delay: 0.7s;
 }
 .login-section.active .form-box.login{
-    transform: translateX(430px);
+    transform: translateX(1430px);
     transition-delay: 0s;
 }
 
@@ -280,7 +282,29 @@ body{
 
 
 
-
+.spinner {
+    display: none;
+    position: fixed;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* z-index: 9999; */
+  }
+  
+  .spinner-icon {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #000;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
 
 
