@@ -1,8 +1,6 @@
 const errorContainer = document.querySelector("#register-errors");
 
 const baseUrl = "http://localhost:4000";
-// const regErrors = new Set();
-
 async function handleRegisterSubmit(body) {
   // Make an API call to the register endpoint.
   try {
@@ -28,24 +26,26 @@ function validateUsername(username) {
   return regex.test(username);
 }
 function handleErrors(errors) {
-    if (errors.length > 0) {
-      removeErrors();
-      showError(errors);
-      return false;
-    }
-    return true;
+  if (errors.length > 0) {
+    removeErrors();
+    showError(errors);
+    return false;
   }
-  function showError(errors) {
-    let errorList = document.createElement("ul");
-    errorList.style.listStyleType = "none";
-    errors.forEach((error) => {
-      let listItem = document.createElement("li");
-      listItem.textContent = error;
-      errorList.appendChild(listItem);
-    });
-    errorContainer.appendChild(errorList);
-  }
-  function removeErrors() {
-    errorContainer.innerHTML = "";
-  }
-export { handleRegisterSubmit , validateUsername, handleErrors };
+  return true;
+}
+function showError(errors) {
+  let errorList = document.createElement("ul");
+  errorList.style.listStyleType = "none";
+  errorList.className = "error-list";
+  errors.forEach((error) => {
+    let listItem = document.createElement("li");
+    listItem.className = "error-message";
+    listItem.textContent = error;
+    errorList.appendChild(listItem);
+  });
+  errorContainer.appendChild(errorList);
+}
+function removeErrors() {
+  errorContainer.innerHTML = "";
+}
+export { handleRegisterSubmit, validateUsername, handleErrors , removeErrors};
