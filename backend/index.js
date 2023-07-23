@@ -11,7 +11,7 @@ const mongoose = require("./db.js");
 const userRouter = require("./routes/UserRoutes.js");
 const bodyParser = require("body-parser");
 const passport = require('./helpers/passport.js');
-
+const fileRouter = require("./routes/FileRoutes.js");
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +33,8 @@ const options = {
   apis: ["./routes/UserRoutes.js"],
 };
 const specs = swaggerJsdoc(options);
-app.use(userRouter)
+app.use(userRouter);
+app.use(fileRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.listen(port, () => {

@@ -9,6 +9,7 @@ import {
   showLoginSpinner,
   hideLoginSpinner,
 } from "./login.js";
+import { handleFileUpload, getUploadedFiles } from "./file.js";
 const loginsec = document.querySelector(".login-section");
 const loginlink = document.querySelector(".login-link");
 const registerlink = document.querySelector(".register-link");
@@ -53,6 +54,7 @@ registerFrom.addEventListener("submit", async (event) => {
 loginFrom.addEventListener("submit", async (event) => {
   event.preventDefault();
   showLoginSpinner();
+  await getUploadedFiles();
   const email = event.target[0].value;
   const password = event.target[1].value;
   const error = await handleLoginSubmit({ email, password });
@@ -65,7 +67,7 @@ loginFrom.addEventListener("submit", async (event) => {
   }
 });
 
-fileInput.addEventListener("change", (event) => {
+fileInput.addEventListener("change", async (event) => {
   event.preventDefault();
   if (fileInput.length == 0) {
     return;
@@ -75,6 +77,14 @@ fileInput.addEventListener("change", (event) => {
   console.log(file.name);
   console.log(validateFile(file));
   fileName.textContent = "FileName: " + minimizeFileName(file.name);
+  console.log(file);
+  const error = await handleFileUpload(file);
+  console.log("file upload");
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Upload successfully");
+  }
 });
 function minimizeFileName(fileName) {
   if (fileName.length > 30) {
