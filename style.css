@@ -20,7 +20,6 @@ body {
     background-size: cover;
     height: 100vh;
     width: 100%;
-    /* filter: blur(10px); */
 }
 
 .header {
@@ -386,7 +385,7 @@ body {
 .row-list li {
     border-radius: 10px;
     flex-basis: calc(25% - 10px);
-    background-color: #f2f2f2;
+    background: rgba(242, 233, 233, 0.5);
     padding: 10px;
     margin-bottom: 10px;
     text-align: center;
@@ -397,3 +396,10 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
+#files h2 {
+
+    text-align: center;
+    font-size: 25px;
+}
+

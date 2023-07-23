@@ -2,7 +2,7 @@ const FileModels = require("../models/File.js");
 const mongoose = require("mongoose");
 
 
-exports.upllaod_file = async (req, res) => {
+exports.upload_file = async (req, res) => {
     const {file, id} = req;
     const newFile = new FileModels.File({
         _id: new mongoose.Types.ObjectId(),

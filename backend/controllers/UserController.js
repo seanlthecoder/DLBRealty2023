@@ -60,8 +60,11 @@ exports.login = async (req, res) => {
       Bcrypt.compare(password, user.password).then((isMatch) => {
         if (isMatch) {
           const payload = { id: user.id };
+
           const token = jwt.sign(payload, jwt_secret);
+          res.cookie("token", token)
           res.json({ token });
+
         } else {
           return res.status(400).json({ error: "Incorrect Password or Email" });
         }

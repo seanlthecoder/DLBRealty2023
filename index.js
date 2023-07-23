@@ -8,6 +8,8 @@ import {
   handleLoginSubmit,
   showLoginSpinner,
   hideLoginSpinner,
+  logedIn,
+  logedOut,
 } from "./login.js";
 import { handleFileUpload, getUploadedFiles } from "./file.js";
 const loginsec = document.querySelector(".login-section");
@@ -21,8 +23,18 @@ const loginSection = document.querySelector(".login-section");
 const formBox = document.querySelector(".form-box");
 const fileInput = document.querySelector("#file-input");
 const fileName = document.querySelector("#file-name");
+const logoutBtn = document.querySelector("#logout");
+
 // loginSection.style.display = 'none';
 // formBox.style.display = "none";
+var token = localStorage.getItem("token");
+if (token) {
+  logedIn();
+} else {
+  logedOut();
+}
+console.log(token, "token");
+logoutBtn.addEventListener("click", () => logedOut());
 registerlink.addEventListener("click", () => {
   loginsec.classList.add("active");
 });
@@ -54,7 +66,7 @@ registerFrom.addEventListener("submit", async (event) => {
 loginFrom.addEventListener("submit", async (event) => {
   event.preventDefault();
   showLoginSpinner();
-  await getUploadedFiles();
+  //   await getUploadedFiles();
   const email = event.target[0].value;
   const password = event.target[1].value;
   const error = await handleLoginSubmit({ email, password });
@@ -64,6 +76,8 @@ loginFrom.addEventListener("submit", async (event) => {
   } else {
     console.log("Login successfully");
     removeErrors();
+    console.log( localStorage.getItem("token"), 'token');
+    logedIn();
   }
 });
 
