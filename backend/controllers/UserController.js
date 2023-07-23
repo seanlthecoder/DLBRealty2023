@@ -1,9 +1,13 @@
+// require statements to import necessary modules and dependencies - ie UserModels, mongoose, Bcrypt, jsonwebtoken, dotenv, and passport.
+
 var UserModels = require("../models/UserModel.js");
 var mongoose = require("mongoose");
 const Bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const passport = require("../helpers/passport.js");
+
+//controller that handles user registration. It is receiving a POST request with user information (username, password, and email) in the request body. The function validates the input data using a schema defined in UserModels.validateUser() and then checks if the username and email are not already taken in the database. If all checks pass, the password is hashed using Bcrypt and the user data is saved in the database.
 
 exports.post_user = async (req, res) => {
   const User = UserModels.User;
@@ -39,6 +43,8 @@ exports.post_user = async (req, res) => {
     res.status(400).send({ error: err.toString() });
   }
 };
+
+// The login function is responsible for handling user login. When a user sends a POST request with their email and password, the function checks if there is a matching user with the provided email in the database. If a user is found, it verifies the password by comparing the provided password with the stored hashed password (using Bcrypt). If the password is correct, the function generates a JSON Web Token (JWT) to authenticate the user and sends it back to the client. The JWT allows the user to access protected routes and resources on the server.
 
 exports.login = async (req, res) => {
   const email = req.body.email;
