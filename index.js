@@ -18,7 +18,8 @@ const registerlink = document.querySelector(".register-link");
 const registerFrom = document.querySelector("#register-form");
 const loginFrom = document.querySelector("#login-form");
 const errorContainer = document.querySelector("#register-errors");
-const baseUrl = "http://localhost:4000";
+// const baseUrl = "http://localhost:4000";
+const baseUrl = "https://dlbrealty2023.onrender.com";
 const loginSection = document.querySelector(".login-section");
 const formBox = document.querySelector(".form-box");
 const fileInput = document.querySelector("#file-input");
@@ -98,10 +99,10 @@ fileInput.addEventListener("change", async (event) => {
   const error = await handleFileUpload(file);
   if (error) {
     console.log(error);
-    
   } else {
     console.log("Upload successfully");
   }
+  
 });
 
 function minimizeFileName(fileName) {

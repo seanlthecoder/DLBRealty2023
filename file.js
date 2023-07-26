@@ -18,17 +18,17 @@ async function handleFileUpload(file) {
     });
     const data = await response.json();
     if (response.status == 200) {
-      return;
+      console.log(data);
+      //   return;
     } else if (response.status == 400) {
       return data.error;
     } else if (response.status == 401 || response1.status == 403) {
       return data.error;
     }
     await getUploadedFiles();
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 }
+
 async function getUploadedFiles() {
   try {
     const response = await fetch(baseUrl + "/api/user/files", {
@@ -53,6 +53,8 @@ async function getUploadedFiles() {
 }
 
 function handleDownloadFile(data) {
+  console.log("here in div constructor");
+  console.log(data);
   rowList.innerHTML = "";
   data.forEach(async (element) => {
     const listItem = document.createElement("li");
@@ -122,6 +124,7 @@ function handleDownloadFile(data) {
     });
   });
 }
+
 async function validateFile(file) {
   const allowedHeaders = [
     "application/pdf",
