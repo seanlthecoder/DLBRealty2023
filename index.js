@@ -102,12 +102,12 @@ fileInput.addEventListener("change", async (event) => {
   } else {
     console.log("Upload successfully");
   }
-  
+
 });
 
 function minimizeFileName(fileName) {
-  if (fileName.length > 30) {
-    return fileName.substring(0, 30);
+  if (fileName.length > 20) {
+    return fileName.substring(0, 20);
   }
   return fileName;
 }

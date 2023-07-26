@@ -136,8 +136,8 @@ async function validateFile(file) {
   return !allowedHeaders.includes(file.type);
 }
 function minimizeFileName(name) {
-  if (name.length > 50) {
-    return name.substring(0, 50) + "...";
+  if (name.length > 20) {
+    return name.substring(0, 20) + "...";
   }
   return name;
 }
