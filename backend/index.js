@@ -15,11 +15,11 @@ const fileRouter = require("./routes/FileRoutes.js");
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 app.use(passport.initialize());
+app.use(bodyParser.json());
 app.use(cors());
 
 const options = {
