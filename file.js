@@ -1,6 +1,10 @@
 const rowList = document.querySelector(".row-list");
+const errorFile = document.querySelector("#error-message-file");
+
 import { baseUrl } from "./index.js";
 import { logedOut } from "./login.js";
+
+errorFile.textContent = "";
 async function handleFileUpload(file) {
   const formData = new FormData();
   formData.append("file", file);
@@ -14,24 +18,19 @@ async function handleFileUpload(file) {
     });
     const data = await response.json();
     if (response.status == 200) {
-      console.log("File uploaded successfully");
-      console.log(data);
       return;
     } else if (response.status == 400) {
-      console.log(data);
       return data.error;
     } else if (response.status == 401 || response1.status == 403) {
-      console.log(data);
       return data.error;
     }
     await getUploadedFiles();
-  } catch (error) {
-    console.error(error);
+  } catch (e) {
+    console.log(e);
   }
 }
 async function getUploadedFiles() {
   try {
-    console.log();
     const response = await fetch(baseUrl + "/api/user/files", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`, // Set the Authorization header to your JWT token
@@ -39,26 +38,23 @@ async function getUploadedFiles() {
     });
     const data = await response.json();
     if (response.status == 200) {
-      console.log(data);
       handleDownloadFile(data);
       return;
     } else if (response.status == 400) {
-      console.log(data);
       return data.error;
     } else if (response.status == 401 || response1.status == 403) {
-      console.log(data);
       return data.error;
     } else {
-      console.log(data);
       return data.error;
     }
   } catch (error) {
-    console.error(error);
+    errorFile.textContent = error.toString();
   }
 }
 
 function handleDownloadFile(data) {
-  data.forEach((element) => {
+  rowList.innerHTML = "";
+  data.forEach(async (element) => {
     const listItem = document.createElement("li");
     const div = document.createElement("div");
     const fileIcon = document.createElement("i");
@@ -66,18 +62,31 @@ function handleDownloadFile(data) {
     div.id = "name";
     const span = document.createElement("span");
     const textSpan = document.createElement("span");
-    textSpan.textContent = " " + element.path;
+    textSpan.textContent = " " + minimizeFileName(element.path);
     span.appendChild(fileIcon);
     span.appendChild(textSpan);
     div.appendChild(span);
     const icon = document.createElement("i");
     icon.className = "fa-solid fa-download";
-    div.appendChild(icon);
+    const downloadDiv = document.createElement("div");
+    downloadDiv.appendChild(icon);
+    const spinnerDiv = document.createElement("div");
+    div.className = "file-spinner";
+    const iconSpinner = document.createElement("div");
+    // iconSpinner.textContent = "L";
+    spinnerDiv.appendChild(iconSpinner);
+    iconSpinner.className = "file-spinner-icon";
+    // downloadDiv.appendChild(iconSpinner);
+    spinnerDiv.style.display = "none";
+    div.appendChild(downloadDiv);
     listItem.appendChild(div);
     rowList.appendChild(listItem);
-    icon.addEventListener("click", async (event) => {
+    downloadDiv.addEventListener("click", async (event) => {
       event.preventDefault();
-      console.log(element._id);
+      //   div.removeChild(downloadDiv);
+      downloadDiv.style.display = "none";
+      //   div.appendChild(spinnerDiv);
+      spinnerDiv.style.display = "";
       try {
         const response1 = await fetch(
           baseUrl + "/api/user/file/" + element._id,
@@ -97,17 +106,36 @@ function handleDownloadFile(data) {
           document.body.appendChild(a);
           a.click();
           a.remove();
-          console.log(blob);
         } else if (response1.status == 401 || response1.status == 403) {
           alert("Unauthorized");
           logedOut();
-          console.log(blob);
         } else {
           alert("Error downloading file");
-          console.log(blob);
         }
-      } catch (e) {}
+      } catch (e) {
+        alert(e.toString());
+      }
+      //   div.removeChild(spinnerDiv);
+      spinnerDiv.style.display = "none";
+      //   div.appendChild(downloadDiv);
+      downloadDiv.style.display = "";
     });
   });
 }
-export { handleFileUpload, getUploadedFiles };
+async function validateFile(file) {
+  const allowedHeaders = [
+    "application/pdf",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.ms-excel",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+  return !allowedHeaders.includes(file.type);
+}
+function minimizeFileName(name) {
+  if (name.length > 50) {
+    return name.substring(0, 50) + "...";
+  }
+  return name;
+}
+export { handleFileUpload, getUploadedFiles, validateFile };

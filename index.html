@@ -25,7 +25,11 @@
         <a href="#">Contact</a>
         <a href="#">Help</a>
         <a id="file-href" href="#">
-          <input type="file" name="file" id="file-input" />
+          <input
+            accept=".pdf,.doc,.xls,.txt"
+            type="file"
+            name="file"
+            id="file-input" />
           <label for="file-input">
             <i
               id="file-upload-icon"
@@ -48,8 +52,13 @@
       <div class="item">
         <h2 class="logo"><i class="bx bxl-xing"></i></h2>
         <div class="text-item">
-          <h2>Welcome <br /><span> To DLB Realty Co. </span></h2>
-          <p>Please login to your DLB Realty Co. account or sign up for one.</p>
+          <h2 id="hi">Hi, <br /><span id="username"></span></h2>
+          <h2 id="welcome">
+            Welcome <br /><span id="DLB"> To DLB Realty Co. </span>
+          </h2>
+          <p id="description">
+            Please login to your DLB Realty Co. account or sign up for one.
+          </p>
           <div class="social-icon">
             <a href="#"><i class="bx bxl-facebook"></i></a>
             <a href="#"><i class="bx bxl-twitter"></i></a>
@@ -60,10 +69,12 @@
         </div>
       </div>
       <div class="login-section">
-        <div id="files">
-            <h2>Uploaded Files</h2>
-            <ul class="row-list">
-            </ul>
+        <div id="files" class="scrollable">
+          <h2>Uploaded Files</h2>
+          <div id="error-container">
+            <span id="error-message-file"></span> 
+          </div>
+          <ul class="row-list scrollable-content"></ul>
         </div>
 
         <div class="form-box login">

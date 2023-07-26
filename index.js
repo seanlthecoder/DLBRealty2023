@@ -11,7 +11,7 @@ import {
   logedIn,
   logedOut,
 } from "./login.js";
-import { handleFileUpload, getUploadedFiles } from "./file.js";
+import { handleFileUpload, validateFile } from "./file.js";
 const loginsec = document.querySelector(".login-section");
 const loginlink = document.querySelector(".login-link");
 const registerlink = document.querySelector(".register-link");
@@ -24,16 +24,15 @@ const formBox = document.querySelector(".form-box");
 const fileInput = document.querySelector("#file-input");
 const fileName = document.querySelector("#file-name");
 const logoutBtn = document.querySelector("#logout");
-
+const allowedFiles = [".pdf", ".docx", ".doc", ".txt", ".xls"];
+fileInput.setAttribute("accept", allowedFiles.join(", "));
 // loginSection.style.display = 'none';
-// formBox.style.display = "none";
-var token = localStorage.getItem("token");
-if (token) {
+formBox.style.display = "none";
+if (localStorage.getItem("token")) {
   logedIn();
 } else {
   logedOut();
 }
-console.log(token, "token");
 logoutBtn.addEventListener("click", () => logedOut());
 registerlink.addEventListener("click", () => {
   loginsec.classList.add("active");
@@ -52,6 +51,12 @@ registerFrom.addEventListener("submit", async (event) => {
   if (!validateUsername(username)) {
     handleErrors(["Username only contain letters, numbers, and underscores."]);
     return;
+  }
+  if (!validatePassword(password)) {
+    return handleErrors([
+      "password to be at least 8 characters long and contain at" +
+        " least one uppercase letter, one lowercase letter, and one digit.",
+    ]);
   }
   const error = await handleRegisterSubmit({ username, password, email });
   hideRegSpinner();
@@ -74,9 +79,7 @@ loginFrom.addEventListener("submit", async (event) => {
   if (error) {
     handleErrors([error]);
   } else {
-    console.log("Login successfully");
     removeErrors();
-    console.log( localStorage.getItem("token"), 'token');
     logedIn();
   }
 });
@@ -87,59 +90,27 @@ fileInput.addEventListener("change", async (event) => {
     return;
   }
   const file = fileInput.files[0];
-
-  console.log(file.name);
-  console.log(validateFile(file));
+  const check = await validateFile(file);
+  if (check) {
+    return;
+  }
   fileName.textContent = "FileName: " + minimizeFileName(file.name);
-  console.log(file);
   const error = await handleFileUpload(file);
-  console.log("file upload");
   if (error) {
     console.log(error);
+    
   } else {
     console.log("Upload successfully");
   }
 });
+
 function minimizeFileName(fileName) {
   if (fileName.length > 30) {
     return fileName.substring(0, 30);
   }
   return fileName;
 }
-function validateFile(file) {
-  const reader = new FileReader();
-  reader.onloadend = function () {
-    const arr = new Uint8Array(reader.result).subarray(0, 4);
-    let header = "";
-    for (let i = 0; i < arr.length; i++) {
-      header += arr[i].toString(16);
-    }
-    let type;
-    switch (header) {
-      case "25504446":
-        type = "application/pdf";
-        break;
-      case "504b0304":
-        type =
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-        break;
-      case "d0cf11e0":
-        type = "application/msword";
-        break;
-      default:
-        type = "";
-        break;
-    }
-    if (type) {
-      console.log(type);
-      return;
-    } else {
-      alert("Invalid file type");
-      return "Invalid file type";
-    }
-  };
-  reader.readAsArrayBuffer(file);
-}
+
 function handleErrors(errors) {
   if (errors.length > 0) {
     removeErrors();
@@ -163,5 +134,8 @@ function showError(errors) {
 function removeErrors() {
   errorContainer.innerHTML = "";
 }
-
+function validatePassword(password) {
+  const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+  return regex.test(password);
+}
 export { baseUrl };
