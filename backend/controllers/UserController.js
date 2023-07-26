@@ -7,8 +7,13 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const passport = require("../helpers/passport.js");
 
-//controller that handles user registration. It is receiving a POST request with user information (username, password, and email) in the request body. The function validates the input data using a schema defined in UserModels.validateUser() and then checks if the username and email are not already taken in the database. If all checks pass, the password is hashed using Bcrypt and the user data is saved in the database.
-
+/* controller that handles user registration. It is receiving
+ a POST request with user information (username, password, and email) 
+ in the request body. The function validates the input data using
+  a schema defined in UserModels.validateUser() and then checks 
+  if the username and email are not already taken in the database. 
+  If all checks pass, the password is hashed using Bcrypt and the user data is saved in the database.
+*/
 exports.post_user = async (req, res) => {
   const User = UserModels.User;
   const { error } = UserModels.validateUser().validate(req.body);
@@ -44,8 +49,14 @@ exports.post_user = async (req, res) => {
   }
 };
 
-// The login function is responsible for handling user login. When a user sends a POST request with their email and password, the function checks if there is a matching user with the provided email in the database. If a user is found, it verifies the password by comparing the provided password with the stored hashed password (using Bcrypt). If the password is correct, the function generates a JSON Web Token (JWT) to authenticate the user and sends it back to the client. The JWT allows the user to access protected routes and resources on the server.
-
+/* The login function is responsible for handling user login. When a user sends a POST 
+request with their email and password, the function checks if there is a matching user 
+with the provided email in the database. If a user is found, it verifies the password by
+comparing the provided password with the stored hashed password (using Bcrypt). If the 
+password is correct, the function generates a JSON Web Token (JWT) to authenticate the 
+user and sends it back to the client. The JWT allows the user to access protected routes
+ and resources on the server.
+ */
 exports.login = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -62,9 +73,8 @@ exports.login = async (req, res) => {
           const payload = { id: user.id };
 
           const token = jwt.sign(payload, jwt_secret);
-          res.cookie("token", token)
+          res.cookie("token", token);
           res.json({ token });
-
         } else {
           return res.status(400).json({ error: "Incorrect Password or Email" });
         }
@@ -75,8 +85,17 @@ exports.login = async (req, res) => {
     });
 };
 
-exports.profile = (req, res) => {
-  res.json({
-    id: req.user.id,
-  });
+exports.profile = async (req, res) => {
+  const id = req.id;
+  const { User } = UserModels;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    delete user._doc.password;
+    res.send(user);
+  } catch (err) {
+    res.status(400).send({ error: err.toString() });
+  }
 };
