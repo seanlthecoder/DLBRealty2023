@@ -82,7 +82,7 @@ async function logedIn() {
   fileInput.style.display = "inline";
   logoutBtn.style.display = "inline";
   rowList.style.display = "block";
-  background.style.background = "url(./images/chicagoHD.jpg) no-repeat ";
+  background.style.background = "url(./images/chicago4.jpg) no-repeat ";
   background.style.backgroundSize = "cover";
   background.style.backgroundPosition = "center";
   getUploadedFiles();
