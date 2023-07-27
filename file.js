@@ -79,16 +79,14 @@ function handleDownloadFile(data) {
     spinnerDiv.appendChild(iconSpinner);
     iconSpinner.className = "file-spinner-icon";
     // downloadDiv.appendChild(iconSpinner);
-    spinnerDiv.style.display = "none";
+    // spinnerDiv.style.display = "none";
     div.appendChild(downloadDiv);
     listItem.appendChild(div);
     rowList.appendChild(listItem);
     downloadDiv.addEventListener("click", async (event) => {
       event.preventDefault();
-      //   div.removeChild(downloadDiv);
-      downloadDiv.style.display = "none";
-      //   div.appendChild(spinnerDiv);
-      spinnerDiv.style.display = "";
+      div.removeChild(downloadDiv);
+      div.appendChild(spinnerDiv);
       try {
         const response1 = await fetch(
           baseUrl + "/api/user/file/" + element._id,
@@ -117,10 +115,8 @@ function handleDownloadFile(data) {
       } catch (e) {
         alert(e.toString());
       }
-      //   div.removeChild(spinnerDiv);
-      spinnerDiv.style.display = "none";
-      //   div.appendChild(downloadDiv);
-      downloadDiv.style.display = "";
+      div.removeChild(spinnerDiv);
+      div.appendChild(downloadDiv);
     });
   });
 }
