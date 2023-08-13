@@ -1,7 +1,14 @@
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const jwt_secret = process.env.JWT_SECRET;
-
+/* 
+verifyToken is a middleware function that is used 
+to verify the JWT sent by the client if it is valid 
+or not and pass the decoded payload and user id to 
+the next middleware function if the token is valid. 
+If the token is invalid or expired, it sends a 401 
+(Unauthorized) response to the client.
+*/
 const verifyToken = (req, res, next) => {
   // Get the token from the header
   const authHeader = req.headers['authorization'];

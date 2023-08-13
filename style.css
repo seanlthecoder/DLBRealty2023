@@ -125,7 +125,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 58%;
+    width: 55%;
     height: 100%;
     color: #fff;
     background: transparent;
@@ -133,9 +133,6 @@ body {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-
-
-
 }
 
 .item .logo {
@@ -170,7 +167,7 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    width: calc(100% - 58%);
+    width: calc(100% - 55%);
     height: 100%;
     color: #fff;
     backdrop-filter: blur(10px);
@@ -384,7 +381,8 @@ body {
     justify-content: space-between;
     list-style: none;
     padding: 0;
-    margin-top: 40px;
+    padding: 0px 15px 6px 15px;
+
 }
 
 .row-list li {
@@ -396,6 +394,7 @@ body {
     margin-left: 10px;
     margin-right: 10px;
     text-align: center;
+    font-size: 12px;
 }
 
 #name {
@@ -415,15 +414,6 @@ body {
     margin-bottom: 100%;
 }
 
-
-/* .file-spinner {
-    display: none; 
-    position: fixed;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-} */
 
 
 .file-spinner-icon {
@@ -470,4 +460,69 @@ body {
     margin: 0 auto;
     /* padding: 10px; */
     margin-top: 5%;
+}
+
+.download-files {
+    width: 100%;
+    /* background: rgba(0, 0, 0, 1); */
+    z-index: 100;
+
+}
+
+/* .download-files {
+    display: flex;
+    justify-content: space-between;
+} */
+
+.download-files-title h1 {
+    text-align: center;
+    font-size: 15px;
+    display: inline-flex;
+}
+
+.download-files-title {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 45px 15px 20px 15px;
+    /* padding: 20px ; */
+}
+
+.row-list-download-file {
+    /* margin: 20px 10px 50px 10px; */
+    color: black;
+    display: block;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    padding: 0px 15px 6px 15px;
+}
+
+
+.row-list-download-file li {
+    border-radius: 10px;
+    flex-basis: calc(25% - 10px);
+    background: rgba(242, 233, 233, 0.5);
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    font-size: 12px;
+
+}
+
+.file-btn {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.active-file {
+    /* border: 1px solid #000000; */
+    color: black;
+    border-radius: 20px;
+    padding: 5px 15px 5px 15px;
+    background: rgba(255, 255, 255, 0.4);
+
 }

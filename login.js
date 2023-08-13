@@ -1,5 +1,6 @@
+const spinner = document.querySelector("#login-spinner");
 import { baseUrl } from "./index.js";
-import { getUploadedFiles } from "./file.js";
+import { getUploadedFiles, getListOfDownloadFiles } from "./file.js";
 const formBox = document.querySelector(".form-box");
 const fileInput = document.querySelector("#file-href");
 const logoutBtn = document.querySelector("#logout");
@@ -11,6 +12,15 @@ const dlb = document.querySelector("#DLB");
 const welcome = document.querySelector("#welcome");
 const description = document.querySelector("#description");
 const socialIcon = document.querySelector(".social-icon");
+const downloadRowList = document.querySelector(".download-files");
+const item = document.querySelector(".item");
+
+/* 
+hnadleLoginSubmit is responsible for making an API call 
+to the login endpoint. if the response status is 200,
+the token is saved in the local storage. otherwise, 
+the error message is returned.
+*/
 
 async function handleLoginSubmit(body) {
   // Make an API call to the register endpoint.
@@ -33,7 +43,14 @@ async function handleLoginSubmit(body) {
     return e.toString();
   }
 }
-const spinner = document.querySelector("#login-spinner");
+
+/*
+showLoginSpinner and hideLoginSpinner are responsible 
+for hiding and showing the spinner respectively when 
+the user clicks the login button and register button. 
+shows spinner until the response is received from the 
+backend server.
+*/
 function showLoginSpinner() {
   spinner.style.display = "block";
 }
@@ -42,6 +59,11 @@ function hideLoginSpinner() {
   spinner.style.display = "none";
 }
 
+/* 
+getUserProfile is responsible for making an API call to 
+get user profile when the user is logged in and open the
+site if he is already logged in.
+*/
 async function getUserProfile() {
   try {
     const response = await fetch(baseUrl + "/api/user/profile", {
@@ -64,6 +86,11 @@ async function getUserProfile() {
   }
 }
 
+/*
+logedIn is responsible for showing the user profile, upload button, 
+logout button and list of files if he is logged in. It hides the 
+login form, welcome message, description and social icons.
+*/
 async function logedIn() {
   getUserProfile()
     .then((user) => {
@@ -72,6 +99,11 @@ async function logedIn() {
     .catch((error) => {
       console.log(error);
     });
+  // const h1 = document.createElement("h1");
+  // h1.textContent = "Downloaded Files";
+  // const div = document.createElement("div");
+  // div.appendChild(h1);
+  // item.appendChild(div);
   hi.style.display = "block";
   username.style.display = "block";
   dlb.style.display = "none";
@@ -86,8 +118,14 @@ async function logedIn() {
   background.style.backgroundSize = "cover";
   background.style.backgroundPosition = "center";
   getUploadedFiles();
+  getListOfDownloadFiles();
 }
-
+/*
+logedOut is responsible for showing the login form, 
+welcome message, sing up form. it hides the user 
+profile, upload button, logout button and list of files.
+when the user logs out.
+*/
 function logedOut() {
   localStorage.removeItem("token");
   hi.style.display = "none";

@@ -84,7 +84,16 @@ exports.login = async (req, res) => {
       return res.status(500).json({ error: err.toString() });
     });
 };
-
+/*
+profile is responsible for handling the GET request to the /profile 
+route and return the user data. In order to access this endpoint the
+user has to have token that is valid to use this route. The token 
+is sent in the request header. The function uses the verifyToken 
+middleware to verify the token and get the user id from the payload. 
+Then it uses the id to find the user in the database and return the 
+user data. The password is removed from the user data before sending 
+it back to the client.
+*/
 exports.profile = async (req, res) => {
   const id = req.id;
   const { User } = UserModels;

@@ -9,7 +9,11 @@ const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: jwt_secret,
 };
-
+/* 
+strategy is an instance of the JwtStrategy class for
+handling user authentication and authorization for 
+protected routes. 
+*/
 const strategy = new JwtStrategy(jwtOptions, (jwt_payload, next) => {
   const { User } = UserModle;
   User.findById(jwt_payload.id)

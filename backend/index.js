@@ -41,6 +41,4 @@ app.listen(port, () => {
   console.log("Server is running... at port " + port);
 });
 
-// 64b315c454c0f50224cb574e
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjMxYTgxOTBjNjAwYWFjNDBkMWYyNSIsImlhdCI6MTY4OTQ1OTM1M30.cn5Ae4mzRxvkldmJS-0HvvzWNP3fQaytrKfp3QCCKtU
+module.exports = app;
