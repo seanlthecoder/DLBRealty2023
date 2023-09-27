@@ -1,8 +1,8 @@
 const rowList = document.querySelector(".row-list");
 const errorFile = document.querySelector("#error-message-file");
 const listDownloadFiles = document.querySelector(".row-list-download-file");
-const download = document.querySelector(".download");
 const upload = document.querySelector(".upload");
+const download = document.querySelector(".download");
 import { baseUrl } from "./index.js";
 import { logedOut } from "./login.js";
 errorFile.textContent = "";
@@ -14,19 +14,19 @@ response status is 200, the file is uploaded. otherwise,
 the error message is returned. 
 */
 function showDownloadFiles() {
-  rowList.style.display = "none";
-  listDownloadFiles.style.display = "";
+  rowList.style.display = "";
+  listDownloadFiles.style.display = "none";
   errorFile.style.display = "none";
-  upload.classList.remove("active-file");
-  download.classList.add("active-file");
+  download.classList.remove("active-file");
+  upload.classList.add("active-file");
 }
 
 function showUploadFiles() {
-  rowList.style.display = "";
-  listDownloadFiles.style.display = "none";
+  rowList.style.display = "none";
+  listDownloadFiles.style.display = "";
   errorFile.style.display = "";
-  download.classList.remove("active-file");
-  upload.classList.add("active-file");
+  upload.classList.remove("active-file");
+  download.classList.add("active-file");
 }
 async function handleFileUpload(file) {
   const formData = new FormData();
@@ -181,7 +181,7 @@ function _handleFiles(data, list, url) {
           const url = await URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download =element;
+          a.download = element;
           document.body.appendChild(a);
           a.click();
           a.remove();

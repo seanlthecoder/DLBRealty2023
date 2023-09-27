@@ -20,8 +20,8 @@ const registerlink = document.querySelector(".register-link");
 const registerFrom = document.querySelector("#register-form");
 const loginFrom = document.querySelector("#login-form");
 const errorContainer = document.querySelector("#register-errors");
-const download = document.querySelector(".download");
 const upload = document.querySelector(".upload");
+const download = document.querySelector(".download");
 const baseUrl = "https://dlbrealty2023.onrender.com";
 // const baseUrl = "http://localhost:4000";
 const formBox = document.querySelector(".form-box");
@@ -41,14 +41,15 @@ in. otherwise, the user is logged out.
 if (localStorage.getItem("token")) {
   logedIn();
   showDownloadFiles();
+  showDownloadFiles();
 } else {
   logedOut();
 }
-download.addEventListener("click", () => {
+upload.addEventListener("click", () => {
   showDownloadFiles();
 });
 
-upload.addEventListener("click", () => {
+download.addEventListener("click", () => {
   showUploadFiles();
 });
 logoutBtn.addEventListener("click", () => logedOut());
