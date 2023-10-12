@@ -1,166 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>DLB Realty Co</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <!-- NAVBAR CREATION -->
-    <header class="header">
-      <nav class="navbar">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a id="file-href" href="#">
-          <input
-            accept=".pdf,.doc,.xls,.txt"
-            type="file"
-            name="file"
-            id="file-input" />
-          <label for="file-input">
-            <i
-              id="file-upload-icon"
-              class="fas fa-file-upload icon-4x pull-left"
-            ></i>
-            Upload
-          </label>
-          <span id="file-name"> </span
-        ></a>
-        <a id="logout" href="#">Logout</a>
-      </nav>
-      <form action="" class="search-bar">
-        <input type="text" placeholder="Search..." />
-        <button><i class="bx bx-search"></i></button>
-      </form>
-    </header>
-    <!-- LOGIN FORM CREATION -->
-    <div class="background"></div>
-    <div class="container">
-      <div class="item">
-        <h2 class="logo"><i class="bx bxl-xing"></i></h2>
-        <div class="text-item">
-          <h2 id="hi">Hi, <br /><span id="username"></span></h2>
-          <h2 id="welcome">
-            Welcome <br /><span id="DLB"> To DLB Realty Co. </span>
-          </h2>
 
-          <p id="description">
-            Please login to your DLB Realty Co. account or sign up for one.
-          </p>
-          <div class="social-icon">
-            <a href="#"><i class="bx bxl-facebook"></i></a>
-            <a href="#"><i class="bx bxl-twitter"></i></a>
-            <a href="#"><i class="bx bxl-youtube"></i></a>
-            <a href="#"><i class="bx bxl-instagram"></i></a>
-            <a href="#"><i class="bx bxl-linkedin"></i></a>
-          </div>
-        </div>
-      </div>
+<head>
+  <title>DLB Realty Co</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
 
-      <div class="login-section">
-        <div id="files" class="scrollable">
-          <div class="download-files-title">
-            <button class="download file-btn active-file">
-              <h1>Download Files</h1>
-            </button>
-            <button class="upload file-btn">
-              <h1>Uploaded Files</h1>
-            </button>
-          </div>
-          <!-- <h2>Uploaded Files</h2> -->
-          <div >
-            <div id="error-container">
-              <span id="error-message-file"></span>
-            </div>
-            <ul class="row-list scrollable-content"></ul>
-            <ul class="row-list-download-file scrollable-content"></ul>
-          </div>
-        </div>
+<body>
+  <!-- NAVBAR CREATION -->
+  <header class="header">
+    <nav class="navbar">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a id="file-href" href="#">
+        <input accept=".pdf,.doc,.xls,.txt" type="file" name="file" id="file-input" />
+        <label for="file-input">
+          <i id="file-upload-icon" class="fas fa-file-upload icon-4x pull-left"></i>
+          Upload
+        </label>
+        <span id="file-name"> </span></a>
+      <a id="logout" href="#">Logout</a>
+    </nav>
+    <form action="" class="search-bar">
+      <input type="text" placeholder="Search..." />
+      <button><i class="bx bx-search"></i></button>
+    </form>
+  </header>
 
-        <div class="form-box login">
-          <form id="login-form" action="">
-            <h2>Sign In</h2>
-            <div id="login-spinner" class="spinner">
-              <div class="spinner-icon"></div>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="bx bxs-envelope"></i></span>
-              <input id="email" type="email" required />
-              <label>Email</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="bx bxs-lock-alt"></i></span>
-              <input id="password" type="password" required />
-              <label>Password</label>
-            </div>
-            <div class="remember-password">
-              <label for=""><input type="checkbox" />Remember Me</label>
-              <a href="#">Forget Password</a>
-            </div>
-            <button type="submit" class="btn">Login In</button>
-            <div class="create-account">
-              <p>
-                Create A New Account?
-                <a href="#" class="register-link">Sign Up</a>
-              </p>
-            </div>
-          </form>
-        </div>
-        <div id="register-errors"></div>
-        <div class="form-box register">
-          <form id="register-form" action="">
-            <h2>Sign Up</h2>
 
-            <div id="spinner" class="spinner">
-              <div class="spinner-icon"></div>
-            </div>
 
-            <div class="input-box">
-              <span class="icon"><i class="bx bxs-user"></i></span>
-              <input class="username" type="text" minlength="3" required />
-              <label>Username</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="bx bxs-envelope"></i></span>
-              <input class="reg-email" type="email" required />
-              <label>Email</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="bx bxs-lock-alt"></i></span>
-              <input class="reg-password" type="password" required />
-              <label>Password</label>
-            </div>
-            <div class="remember-password">
-              <label for=""
-                ><input type="checkbox" />I agree with this statment</label
-              >
-            </div>
-            <button id="register-submit" type="submit" class="btn">
-              Register
-            </button>
-            <div class="create-account">
-              <p>
-                Already Have An Account?
-                <a href="#" class="login-link">Sign In</a>
-              </p>
-            </div>
-          </form>
+  <!-- LOGIN FORM CREATION -->
+  <div class="background"></div>
+  <div class="container">
+    <div class="item">
+      <h2 class="logo"><i class="bx bxl-xing"></i></h2>
+      <div class="text-item">
+        <h2 id="hi">Hi, <br /><span id="username"></span></h2>
+        <h2 id="welcome">
+          Welcome <br /><span id="DLB"> To DLB Realty Co. </span>
+        </h2>
+
+        <p id="description">
+          Please login to your DLB Realty Co. account or sign up for one.
+        </p>
+        <div class="social-icon">
+          <a href="#"><i class="bx bxl-facebook"></i></a>
+          <a href="#"><i class="bx bxl-twitter"></i></a>
+          <a href="#"><i class="bx bxl-youtube"></i></a>
+          <a href="#"><i class="bx bxl-instagram"></i></a>
+          <a href="#"><i class="bx bxl-linkedin"></i></a>
         </div>
       </div>
     </div>
-    <!-- SIGN UP FORM CREATION -->
 
-    <script type="module" src="index.js"></script>
-  </body>
+    <div class="login-section">
+      <div id="files" class="scrollable">
+        <div class="download-files-title">
+          <button class="download file-btn active-file">
+            <h1>Download Files</h1>
+          </button>
+          <button class="upload file-btn">
+            <h1>Uploaded Files</h1>
+          </button>
+        </div>
+        <!-- <h2>Uploaded Files</h2> -->
+        <div>
+          <div id="error-container">
+            <span id="error-message-file"></span>
+          </div>
+          <ul class="row-list scrollable-content"></ul>
+          <ul class="row-list-download-file scrollable-content"></ul>
+        </div>
+      </div>
+
+      <div class="form-box login">
+        <form id="login-form" action="">
+          <h2>Sign In</h2>
+          <div id="login-spinner" class="spinner">
+            <div class="spinner-icon"></div>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="bx bxs-envelope"></i></span>
+            <input id="email" type="email" required />
+            <label>Email</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="bx bxs-lock-alt"></i></span>
+            <input id="password" type="password" required />
+            <label>Password</label>
+          </div>
+          <div class="remember-password">
+            <label for=""><input type="checkbox" />Remember Me</label>
+            <a href="#">Forget Password</a>
+          </div>
+          <button type="submit" class="btn">Login In</button>
+          <div class="create-account">
+            <p>
+              Create A New Account?
+              <a href="#" class="register-link">Sign Up</a>
+            </p>
+          </div>
+        </form>
+      </div>
+      <div id="register-errors"></div>
+      <div class="form-box register">
+        <form id="register-form" action="">
+          <h2>Sign Up</h2>
+
+          <div id="spinner" class="spinner">
+            <div class="spinner-icon"></div>
+          </div>
+
+          <div class="input-box">
+            <span class="icon"><i class="bx bxs-user"></i></span>
+            <input class="username" type="text" minlength="3" required />
+            <label>Username</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="bx bxs-envelope"></i></span>
+            <input class="reg-email" type="email" required />
+            <label>Email</label>
+          </div>
+          <div class="input-box">
+            <span class="icon"><i class="bx bxs-lock-alt"></i></span>
+            <input class="reg-password" type="password" required />
+            <label>Password</label>
+          </div>
+          <div class="remember-password">
+            <label for=""><input type="checkbox" />I agree with this statment</label>
+          </div>
+          <button id="register-submit" type="submit" class="btn">
+            Register
+          </button>
+          <div class="create-account">
+            <p>
+              Already Have An Account?
+              <a href="#" class="login-link">Sign In</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- SIGN UP FORM CREATION -->
+
+  <script type="module" src="index.js"></script>
+
+  <div id="contact">
+    <div class="conatiner">
+      <div class="row">
+        <div class="contact-left">
+          <h1 class="sub-title">Contact Me</h1>
+          <p><i class="fas fa-paper-plane"></i> contact@example.com</p>
+        </div>
+
+
+        <div class="contact-right">
+          <form name="submit-to-google-sheet">
+            <input type"text" name="Name" placeholder="Your Name" required>
+            <input type"email" name="Email" placeholder="Your Email" required>
+            <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+            <button type "submit" class="btn btn2">Submit</button>
+
+
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+</body>
+
 </html>

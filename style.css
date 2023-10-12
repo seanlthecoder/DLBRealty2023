@@ -549,3 +549,27 @@ body {
     background: rgba(255, 255, 255, 0.4);
 
 }
+
+
+.contact-right {
+    display:block;
+    position:relative;
+    top: 90%;
+    left: 79%;
+    background: rgba(255, 255, 255, 0.4);
+    margin-bottom: 50px;
+    margin-right: 10px;
+    font-size: 12px;
+    padding: 0px 15px 6px 15px;
+    width: 340px;
+}
+
+
+.row {
+margin-bottom: 300;
+
+
+
+
+
+}
