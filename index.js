@@ -10,10 +10,19 @@ import {
   hideLoginSpinner,
   logedIn,
   logedOut,
+  logedInAsAdmin,
 } from "./login.js";
 
-import { showDownloadFiles, showUploadFiles } from "./file.js";
-import { handleFileUpload, validateFile } from "./file.js";
+import {
+  showDownloadFiles,
+  showUploadFiles,
+  handleFileUpload,
+  validateFile,
+  showAdminFiles,
+  showUsers,
+  getUsers,
+} from "./file.js";
+// import { handleFileUpload, validateFile } from "./file.js";
 const loginsec = document.querySelector(".login-section");
 const loginlink = document.querySelector(".login-link");
 const registerlink = document.querySelector(".register-link");
@@ -22,12 +31,15 @@ const loginFrom = document.querySelector("#login-form");
 const errorContainer = document.querySelector("#register-errors");
 const upload = document.querySelector(".upload");
 const download = document.querySelector(".download");
+const fileTab = document.querySelector(".file");
+const usersTab = document.querySelector(".users");
 const baseUrl = "https://dlbrealty2023.onrender.com";
-// const baseUrl = "http://localhost:4000";
+// const baseUrl = "http://localhost:4008";
 const formBox = document.querySelector(".form-box");
 const fileInput = document.querySelector("#file-input");
 const fileName = document.querySelector("#file-name");
 const logoutBtn = document.querySelector("#logout");
+const loginBtn = document.querySelector(".btn");
 const allowedFiles = [".pdf", ".docx", ".doc", ".txt", ".xls"];
 fileInput.setAttribute("accept", allowedFiles.join(", "));
 formBox.style.display = "none";
@@ -38,20 +50,41 @@ if the user is logged in or not. if there is
 a token in the local storage, the user is logged
 in. otherwise, the user is logged out.
 */
-if (localStorage.getItem("token")) {
-  logedIn();
-  showDownloadFiles();
-  showDownloadFiles();
-} else {
-  logedOut();
+function checkIfLoggedIn() {
+  if (localStorage.getItem("token")) {
+    console.log(localStorage.getItem("userType"), "userType");
+    console.log(localStorage.getItem("token"), "token");
+    const userType = localStorage.getItem("userType");
+    if (userType === "user") {
+      showDownloadFiles();
+      logedIn();
+    } else if (userType === "admin") {
+      showAdminFiles();
+      logedInAsAdmin();
+    }
+  } else {
+    logedOut();
+  }
 }
+checkIfLoggedIn();
+checkIfLoggedIn();
+
 upload.addEventListener("click", () => {
   showDownloadFiles();
 });
-
+loginBtn.addEventListener("click", () => {
+  checkIfLoggedIn();
+});
 download.addEventListener("click", () => {
   showUploadFiles();
 });
+fileTab.addEventListener("click", () => {
+  showAdminFiles();
+});
+usersTab.addEventListener("click", () => {
+  showUsers();
+});
+
 logoutBtn.addEventListener("click", () => logedOut());
 registerlink.addEventListener("click", () => {
   loginsec.classList.add("active");
@@ -59,6 +92,7 @@ registerlink.addEventListener("click", () => {
 loginlink.addEventListener("click", () => {
   removeErrors();
   loginsec.classList.remove("active");
+  checkIfLoggedIn();
 });
 
 /* 
@@ -115,7 +149,7 @@ loginFrom.addEventListener("submit", async (event) => {
     handleErrors([error]);
   } else {
     removeErrors();
-    logedIn();
+    // logedIn();
   }
 });
 /*
@@ -135,7 +169,13 @@ fileInput.addEventListener("change", async (event) => {
     return;
   }
   fileName.textContent = "FileName: " + minimizeFileName(file.name);
-  const error = await handleFileUpload(file);
+  let url;
+  if (localStorage.getItem("userType") === "admin") {
+    url = "/api/admin/file";
+  } else {
+    url = "/api/user/file";
+  }
+  const error = await handleFileUpload(file, url);
   if (error) {
     console.log(error);
   } else {

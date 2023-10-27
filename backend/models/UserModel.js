@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  userType: {
+    type: String,
+    default: "user",
+  },
 });
 
 /*
@@ -41,11 +45,12 @@ field is required, must be a string, and must be between 6 and 50 characters
 long. the email field is required, must be a string, and must be a valid email address. 
 */
 function validateUser(user) {
-   return schema = Joi.object({
+  return (schema = Joi.object({
     username: Joi.string().min(3).max(50).required(),
     password: Joi.string().min(3).max(50).required(),
     email: Joi.string().email().required(),
-  });
+    userType: Joi.string(),
+  }));
   return Joi.validate(user._doc, schema);
 }
 

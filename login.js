@@ -1,10 +1,17 @@
 const spinner = document.querySelector("#login-spinner");
 import { baseUrl } from "./index.js";
-import { getUploadedFiles, getListOfDownloadFiles } from "./file.js";
+import {
+  getUploadedFiles,
+  getListOfDownloadFiles,
+  getListOfAdminFiles,
+  getUsers,
+} from "./file.js";
 const formBox = document.querySelector(".form-box");
 const fileInput = document.querySelector("#file-href");
+const adminFileInput = document.querySelector("#admin-file-href");
 const logoutBtn = document.querySelector("#logout");
 const rowList = document.querySelector("#files");
+const adminFiles = document.querySelector("#admin-files");
 const background = document.querySelector(".background");
 const hi = document.querySelector("#hi");
 const username = document.querySelector("#username");
@@ -33,6 +40,9 @@ async function handleLoginSubmit(body) {
     const data = await response.json();
     if (response.status == 200) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userType", data.userType);
+      console.log(data, "data from login1");
+
       return;
     } else if (response.status == 400) {
       return data.error;
@@ -74,6 +84,7 @@ async function getUserProfile() {
     });
     const data = await response.json();
     if (response.status == 200) {
+      console.log(data);
       return data;
     } else if (response.status == 400) {
       return data.error;
@@ -114,11 +125,46 @@ async function logedIn() {
   fileInput.style.display = "inline";
   logoutBtn.style.display = "inline";
   rowList.style.display = "block";
+  adminFiles.style.display = "none";
   background.style.background = "url(./images/chicago4.jpg) no-repeat ";
   background.style.backgroundSize = "cover";
   background.style.backgroundPosition = "center";
   getUploadedFiles();
   getListOfDownloadFiles();
+}
+
+async function logedInAsAdmin() {
+  console.log("logedInAsAdmin");
+  getUserProfile()
+    .then((user) => {
+      username.textContent = user.username;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  // const h1 = document.createElement("h1");
+  // h1.textContent = "Downloaded Files";
+  // const div = document.createElement("div");
+  // div.appendChild(h1);
+  // item.appendChild(div);
+  hi.style.display = "block";
+  username.style.display = "block";
+  dlb.style.display = "none";
+  welcome.style.display = "none";
+  description.style.display = "none";
+  socialIcon.style.display = "none";
+  formBox.style.display = "none";
+  fileInput.style.display = "inline";
+  logoutBtn.style.display = "inline";
+  rowList.style.display = "none";
+  adminFiles.style.display = "block";
+  background.style.background = "url(./images/chicago4.jpg) no-repeat ";
+  background.style.backgroundSize = "cover";
+  background.style.backgroundPosition = "center";
+  // getUploadedFiles();
+  // getListOfDownloadFiles();
+  getListOfAdminFiles();
+  getUsers();
 }
 /*
 logedOut is responsible for showing the login form, 
@@ -138,6 +184,7 @@ function logedOut() {
   fileInput.style.display = "none";
   logoutBtn.style.display = "none";
   rowList.style.display = "none";
+  adminFiles.style.display = "none";
   background.style.background = "url(./images/chicago2.jpg) no-repeat ";
   background.style.backgroundSize = "cover";
   background.style.backgroundPosition = "center";
@@ -149,4 +196,5 @@ export {
   hideLoginSpinner,
   logedIn,
   logedOut,
+  logedInAsAdmin,
 };

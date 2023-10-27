@@ -7,6 +7,25 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const passport = require("../helpers/passport.js");
 
+exports.create_admin = async (req, res) => {
+  const User = UserModels.User;
+
+  const user = new User({
+    _id: new mongoose.Types.ObjectId(),
+    username: process.env.USER_NAME,
+    password: process.env.PASSWORD,
+    email: process.env.EMAIL,
+    userType: "admin",
+  });
+  try {
+    user.password = Bcrypt.hashSync(user.password, 10);
+    await user.save();
+    res.send("Successfully Created");
+  } catch (err) {
+    res.status(400).send({ error: err.toString() });
+  }
+};
+
 /* controller that handles user registration. It is receiving
  a POST request with user information (username, password, and email) 
  in the request body. The function validates the input data using
@@ -74,7 +93,7 @@ exports.login = async (req, res) => {
 
           const token = jwt.sign(payload, jwt_secret);
           res.cookie("token", token);
-          res.json({ token });
+          res.json({ token, userType: user.userType });
         } else {
           return res.status(400).json({ error: "Incorrect Password or Email" });
         }
@@ -104,6 +123,22 @@ exports.profile = async (req, res) => {
     }
     delete user._doc.password;
     res.send(user);
+  } catch (err) {
+    res.status(400).send({ error: err.toString() });
+  }
+};
+
+exports.get_users = async (req, res) => {
+  const { User } = UserModels;
+  try {
+    const users = await User.find({   });
+    if (!users) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    users.forEach((user) => {
+      delete user._doc.password;
+    });
+    res.send(users);
   } catch (err) {
     res.status(400).send({ error: err.toString() });
   }
